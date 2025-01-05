@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/lcov_cobertura-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/lcov_cobertura-{{ version }}.tar.gz
   sha256: c6ce347bf3ee67f8d5d020cd662626a3594cf2be727cc634aa0d11fa3f7f1374
 
 build:
@@ -14,14 +14,14 @@ build:
     - lcov_cobertura = lcov_cobertura.lcov_cobertura:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
-    - python >=3.6
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -31,6 +31,7 @@ test:
     - lcov_cobertura --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://eriwen.github.io/lcov-to-cobertura-xml/
